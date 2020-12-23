@@ -69,7 +69,7 @@ elif [ $CURVE == "libsodium" ]; then
         rm -rf "${cache}/libsodium"
         (cd "${cache}" && git clone -b stable --depth 1 git://github.com/jedisct1/libsodium.git) || exit 1
         (cd "${cache}/libsodium" && ./autogen.sh \
-            && ./configure --quiet "${ANDROID_BUILD_OPTS[@]}" --disable-soname-versions \
+            && ./configure --quiet "${ANDROID_BUILD_OPTS[@]}" --enable-drafts --disable-soname-versions \
             && make -j 4 \
             && make install) || exit 1
     }
