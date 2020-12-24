@@ -72,7 +72,7 @@ function android_build_check_fail {
 function android_build_set_env {
     BUILD_ARCH=$1
 
-    export TOOLCHAIN_PATH="${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/${HOST_PLATFORM}/bin"
+    export TOOLCHAIN_PATH="/home/zmq/android-ndk-r10e/toolchains/llvm/prebuilt/linux-x86_64/arm-linux-androideabi/bin"
 
     # Set variables for each architecture
     if [ $BUILD_ARCH == "arm" ]; then
