@@ -40,12 +40,13 @@ export NDK_VERSION=${NDK_VERSION:-android-ndk-r21d}
 # SDK version 21 is the minimum version for 64-bit builds.
 export MIN_SDK_VERSION=${MIN_SDK_VERSION:-21}
 
-export TOOLCHAIN_PATH="/home/zmq/android-ndk-r10e/toolchains/llvm/prebuilt/linux-x86_64/arm-linux-androideabi/bin"
-
 # Set up android build environment and set ANDROID_BUILD_OPTS array
 android_build_set_env $BUILD_ARCH
 android_build_env
 android_build_opts
+
+TOOLCHAIN_PATH="/home/zmq/android-ndk-r10e/toolchains/llvm/prebuilt/linux-x86_64/arm-linux-androideabi/bin"
+
 
 # Use a temporary build directory
 cache="/tmp/android_build/${TOOLCHAIN_ARCH}"
@@ -71,7 +72,7 @@ elif [ $CURVE == "libsodium" ]; then
         rm -rf "${cache}/libsodium"
         (cd "${cache}" && git clone -b stable --depth 1 git://github.com/jedisct1/libsodium.git) || exit 1
         (cd "${cache}/libsodium" && ./autogen.sh \
-            && ./configure --quiet "${ANDROID_BUILD_OPTS[@]}" --enable-drafts --disable-soname-versions \
+            && ./configure --quiet "${ANDROID_BUILD_OPTS[@]}" --disable-soname-versions \
             && make -j 4 \
             && make install) || exit 1
     }
@@ -91,7 +92,7 @@ LIBTOOL_EXTRA_LDFLAGS='-avoid-version'
     (cp -r ../.. "${cache}/libzmq" && cd "${cache}/libzmq" && make clean)
 
     (cd "${cache}/libzmq" && ./autogen.sh \
-        && ./configure --quiet "${ANDROID_BUILD_OPTS[@]}" ${CURVE} --without-docs \
+        && ./configure --quiet "${ANDROID_BUILD_OPTS[@]}" ${CURVE} --enable-drafts --without-docs \
         && make -j 4 \
         && make install) || exit 1
 }
