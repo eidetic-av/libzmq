@@ -40,6 +40,8 @@ export NDK_VERSION=${NDK_VERSION:-android-ndk-r21d}
 # SDK version 21 is the minimum version for 64-bit builds.
 export MIN_SDK_VERSION=${MIN_SDK_VERSION:-21}
 
+export TOOLCHAIN_PATH="/home/zmq/android-ndk-r10e/toolchains/llvm/prebuilt/linux-x86_64/arm-linux-androideabi/bin"
+
 # Set up android build environment and set ANDROID_BUILD_OPTS array
 android_build_set_env $BUILD_ARCH
 android_build_env
